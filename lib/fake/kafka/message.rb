@@ -1,14 +1,16 @@
 class Fake::Kafka::Message
-  attr_reader :key, :topic, :partition, :offset
-  def initialize(value, key, topic, partition, offset)
-    @value = value
-    @key = key
-    @topic = topic
-    @partition = partition
-    @offset = offset
-  end
+  attr_reader :key, :value, :topic, :partition, :partition_key,
+              :offset, :headers, :create_time, :bytesize
 
-  def value
-    @value.to_json
+  def initialize(value:, key:, headers: {}, topic:, partition: 0, partition_key: nil, create_time: Time.now.utc, offset: 0)
+    @value = value
+    @topic = topic
+    @key = key
+    @partition = partition
+    @partition_key = partition_key
+    @offset = offset
+    @headers = headers
+    @create_time = create_time
+    @bytesize = key.to_s.bytesize + value.to_s.bytesize
   end
 end

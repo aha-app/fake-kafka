@@ -18,8 +18,14 @@ module Fake
       !!@paused_partitions[topic][partition]
     end
 
-    def deliver_message(value, topic:, key: nil)
-      @messages << Message.new(value, key, topic, 0, 0)
+    def deliver_message(value, key: nil, headers: {}, topic:, partition: nil, partition_key: nil, retries: 1)
+      @messages << Message.new(
+        value: value,
+        topic: topic,
+        key: key,
+        headers: headers,
+        partition_key: partition_key
+      )
     end
 
     def messages_in(topic)
