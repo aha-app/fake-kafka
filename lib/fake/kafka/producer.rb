@@ -9,7 +9,7 @@ class Fake::Kafka::Producer
   end
 
   def deliver_messages
-    @buffer.each do |value, **options|
+    @buffer.each do |value, options|
       @kafka.deliver_message(value.to_s, **options)
     end
   end
